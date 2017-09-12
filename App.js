@@ -1,13 +1,12 @@
 import React, {Component} from 'react';
-import {View, TouchableOpacity, Image, StyleSheet, BackHandler} from 'react-native';
+import {View, TouchableOpacity, Image, StyleSheet, BackHandler, Platform} from 'react-native';
 import {Actions, Reducer, Router, Scene} from "react-native-router-flux";
 import CameraView from './CameraView';
 import MainView from './MainView';
+import ImageView from './ImageView';
 class App extends Component{
     constructor(props){
         super(props);
-
-
     }
 
     render(){
@@ -22,14 +21,19 @@ class App extends Component{
                     {/* Sign */}
                     <Scene
                         key="main"
-                        component={CameraView}
+                        component={MainView}
                         hideNavBar={true}
                         sceneStyle ={{marginTop:0}}
                         initial={true}
                     />
                     <Scene
                         key="camera"
-                        component={MainView}
+                        component={CameraView}
+                        hideNavBar={true}
+                    />
+                    <Scene
+                        key="image"
+                        component={ImageView}
                         hideNavBar={true}
                     />
                 </Scene>

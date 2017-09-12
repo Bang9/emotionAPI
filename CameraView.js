@@ -1,6 +1,10 @@
 import React, {Component} from 'react';
-import {View, TouchableOpacity, Image, StyleSheet} from 'react-native';
+import {View, TouchableOpacity, Image, StyleSheet, Text} from 'react-native';
 import Camera from 'react-native-camera';
+import {Actions} from 'react-native-router-flux';
+import ImageResizer from 'react-native-image-resizer';
+
+
 
 class CameraView extends Component{
     constructor(props){
@@ -12,7 +16,7 @@ class CameraView extends Component{
             camera: {
                 aspect: Camera.constants.Aspect.fill,
                 captureTarget: Camera.constants.CaptureTarget.cameraRoll,
-                type: Camera.constants.Type.back,
+                type: Camera.constants.Type.front,
                 orientation: Camera.constants.Orientation.auto,
                 flashMode: Camera.constants.FlashMode.auto,
             },
@@ -23,14 +27,30 @@ class CameraView extends Component{
     takePicture() {
         if (this.camera) {
             this.camera.capture()
-                .then((data) => this.setState(ImageData))
+                .then((data) => {
+                    console.log('captured')
+                    ImageResizer.createResizedImage(data.mediaUri, 1000, 1000, 'JPEG', 80)
+                        .then(({uri}) => {
+                            console.log(uri)
+                            // response.uri is the URI of the new image that can now be displayed, uploaded...
+                            // response.path is the path of the new image
+                            // response.name is the name of the new image with the extension
+                            // response.size is the size of the new image
+                            console.log('Will pop',uri)
+                            Actions.pop();
+                            Actions.refresh({uri:uri})
+                        }).catch((err) => {
+                        // Oops, something went wrong. Check that the filename is correct and
+                        // inspect err to get more details.
+                    });
+                })
                 .catch(err => console.error(err));
         }
     }
 
     render(){
         return(
-            <View>
+            <View style={styles.container}>
                 <Camera
                     ref={(cam) => {
                         this.camera = cam;
@@ -50,16 +70,9 @@ class CameraView extends Component{
                 <View style={[styles.overlay, styles.bottomOverlay]}>
                     <TouchableOpacity
                         style={{width:50,height:50,backgroundColor:'white'}}
-                        onPress={()=>this.takePicture}
+                        onPress={()=>this.takePicture()}
                     >
-                        <Text style={{fontSize:36,color:'black'}}>캡쳐</Text>
-                    </TouchableOpacity>
-
-                    <TouchableOpacity
-                    style={{width:50,height:50,backgroundColor:'white'}}
-                    onPress={()=>Actions.pop(this.state)}
-                    >
-                    <Text style={{fontSize:36,color:'black'}}>뒤로</Text>
+                        <Text style={{fontSize:25,color:'black'}}>캡쳐</Text>
                     </TouchableOpacity>
                 </View>
             </View>
