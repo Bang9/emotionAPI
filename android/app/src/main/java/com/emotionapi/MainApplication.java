@@ -3,6 +3,7 @@ package com.emotionapi;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.RNFetchBlob.RNFetchBlobPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
@@ -14,13 +15,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import fr.bamlab.rnimageresizer.ImageResizerPackage;
-import io.invertase.firebase.RNFirebasePackage;
-import io.invertase.firebase.auth.RNFirebaseAuthPackage;
-import io.invertase.firebase.database.RNFirebaseDatabasePackage;
-import io.invertase.firebase.storage.RNFirebaseStoragePackage;
 
-// Required package
-// Optional packages - add as appropriate
 
 
 public class MainApplication extends Application implements ReactApplication {
@@ -35,14 +30,10 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new RNFetchBlobPackage(),
             new ImageResizerPackage(),
             new ImageToBase64Package(),
-            new RCTCameraPackage(),
-              new RNFirebasePackage(),  // <-- Add this line
-              // Add these packages as appropriate
-              new RNFirebaseAuthPackage(),
-              new RNFirebaseDatabasePackage(),
-              new RNFirebaseStoragePackage()
+            new RCTCameraPackage()
 
       );
     }
