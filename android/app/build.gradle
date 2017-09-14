@@ -134,7 +134,6 @@ android {
 
 dependencies {
     compile project(':react-native-camera')
-    compile project(':react-native-image-to-base64')
     compile project(':react-native-image-resizer')
     compile project(':react-native-fetch-blob')
     compile fileTree(include: ['*.jar'], dir: 'libs')

@@ -8,7 +8,6 @@ import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
-import com.github.xfumihiro.react_native_image_to_base64.ImageToBase64Package;
 import com.lwansbrough.RCTCamera.RCTCameraPackage;
 
 import java.util.Arrays;
@@ -32,7 +31,6 @@ public class MainApplication extends Application implements ReactApplication {
           new MainReactPackage(),
             new RNFetchBlobPackage(),
             new ImageResizerPackage(),
-            new ImageToBase64Package(),
             new RCTCameraPackage()
 
       );
